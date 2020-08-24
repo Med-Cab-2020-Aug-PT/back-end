@@ -1,7 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-const Auth = require('../auth/auth-router')
+
+const Auth = require('../auth/auth-router');
+const canRoute = require('../cannabis/cannabis_router');
 
 const server = express();
 server.use(express.json());
@@ -9,7 +11,7 @@ server.use(helmet());
 server.use(cors());
 
 server.use("/api", Auth)
-
+server.use('/api/cannabis', canRoute)
 server.get('/', (req, res) => {
   
     res.send(`

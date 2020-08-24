@@ -22,8 +22,8 @@ router.post("/register", (req, res) => {
 
     // save the user to the database
     Users.add(credentials)
-      .then(user => {
-        res.status(201).json({ data: user });
+      .then(users => {
+        res.status(201).json({ data: users });
       })
       .catch(error => {
         res.status(500).json({ message: error.message });
@@ -41,12 +41,12 @@ router.post("/login", (req, res) => {
   if (isValid(req.body)) {
     Users.findBy({ username })
     .first()
-      .then(user => {
+      .then(users => {
         // compare the password the hash stored in the database
-        if (user && bcryptjs.compareSync(password, user.password)) {
-            const token = generateToken(user);
+        if (users && bcryptjs.compareSync(password, users.password)) {
+            const token = generateToken(users);
 
-          res.status(200).json({ message: `Welcome ${user.username}!`,
+          res.status(200).json({ message: `Welcome ${users.username}!`,
         jwt_token: token
         });
         } else {
@@ -63,11 +63,11 @@ router.post("/login", (req, res) => {
   }
 });
 
-function generateToken(user) {
+function generateToken(users) {
 
   const payload = {
-    subject: user.id,
-    username: user.username,
+    id: users.id,
+    username: users.username,
   };
 
  const secret = secrets.jwt_secret;
