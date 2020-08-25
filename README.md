@@ -4,5 +4,10 @@
 
 - current endpoints
 
-{api/register} requires username and password
-{api/login} reqiures username and password
+{api/register} method: post requires username and password
+{api/login} method: post reqiures username and password
+
+{api/cannabis} method: get requires auth
+{api/cannabis/save} method: post requires auth 
+                            required body{name, flavors, effects, type, description, rating}
+{api/cannabis/:id}  method: delete requires auth               

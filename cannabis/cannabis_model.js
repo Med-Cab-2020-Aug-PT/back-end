@@ -10,18 +10,20 @@ module.exports = {
 }
 
 function getPreferrences(id) {
-    return db('users as u')
-    .join('users_cannabis as uc', 'u.id', 'uc.user_id')
+    return db('users')
+    .from('users')
+    .join('users_cannabis as uc', 'users.id', 'uc.user_id')
     .join('cannabis as c', 'uc.cannabis_id', 'c.index')
-    .where('u.id', id)
-    .select('c.index', 'c.name', 'c.type', 'c.flavors ', 'c.effects', 'c.description', 'c.rating')
+    .where('users.id', id)
+    .select('users.id', 'c.index', 'c.name', 'c.type', 'c.flavors ', 'c.effects', 'c.description', 'c.rating')
             
 }
 
 function checkPrefs(id) {
-    return('users as u')
-        .join('users_cannabis as uc', 'u.id', 'uc.iser_id')
-        .join('cannais as c', 'uc.cannabis_id', 'c.index')
+    return db('users')
+        // .from('users')
+        .join('users_cannabis as uc', 'users.id', 'uc.user_id')
+        .join('cannabis as c', 'uc.cannabis_id', 'c.index')
         .where('c.index', id)
 }
 
@@ -34,7 +36,7 @@ function find(name){
 }
 
 function add(cannabis) {
-    return db('cannabis').insert(cannabis).returning('index')
+    return db('cannabis').insert(cannabis).returning('id')
 }
 
 function remove( cannabis_id, user_id) {

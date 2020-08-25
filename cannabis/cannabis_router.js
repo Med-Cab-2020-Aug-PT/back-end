@@ -22,7 +22,7 @@ router.get('/', restrict, async (req, res) => {
     }
 });
 
-router.post('/', restrict, async (req, res) => {
+router.post('/save', restrict, async (req, res) => {
     const body = req.body
     const user = req.decodedToken
 
@@ -31,7 +31,7 @@ router.post('/', restrict, async (req, res) => {
         if (found) {
             const inPref = await Can.checkPrefs(found.index)
             if (inPref.length > 0) {
-                return res.status(400).json({ message: `You already have ${body.name} in your prefferences`})
+                return res.status(400).json({ message: `You already have ${body.name} in your preferences`})
             }
             const added = await Can.addPreferrences(user.id, found.index)
             if (added) {
@@ -49,7 +49,7 @@ router.post('/', restrict, async (req, res) => {
         res.status(400).json({message: 'Error adding data'})
     }
     catch (err) {
-        res.status(500).json({message: 'request failed'})
+        res.status(500).json({message:err.toString()})
     }
 });
 
