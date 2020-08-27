@@ -3,7 +3,10 @@ const db = require("../database/db_config.js");
 module.exports = {
     add,
     findBy,
-    find
+    find,
+    addToken,
+    findByToken,
+    removeToken
 };
 
 async function add(user) {
@@ -25,4 +28,16 @@ function findById(id) {
     return db('users')
             .where({id})
             .first()
+}
+
+function addToken(id, token) {
+    return db('users').where({id}).update({ token })
+}
+
+function findByToken(token) {
+    return db('users').where({token})
+}
+
+function removeToken(token) {
+    return db('users').where({token}).update({ token: "" })
 }
