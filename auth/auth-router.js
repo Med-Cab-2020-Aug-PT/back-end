@@ -24,7 +24,7 @@ router.post("/register", async (req, res) => {
     // save the user to the database
     Users.add(credentials)
       .then(users => {
-        res.status(201).json({ data: users });
+        res.status(201).json({ data: users.username });
       })
     
   } else {
