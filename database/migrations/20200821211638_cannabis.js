@@ -3,7 +3,7 @@ const { table } = require("../db_config");
 exports.up = function(knex) {
   return knex.schema
     .createTable('cannabis', tbl => {
-        tbl.increments('index');
+        tbl.increments('index')
         tbl.string('name', 125)
             .notNullable();
         tbl.string('type',125)
@@ -12,7 +12,7 @@ exports.up = function(knex) {
             .notNullable();
         tbl.string('effects', 125)
             .notNullable();
-        tbl.string('flavors', 125)
+        tbl.string('flavors', 125)           
             .notNullable();
         tbl.string('description', 500)
             .notNullable();        
@@ -39,5 +39,6 @@ exports.up = function(knex) {
 exports.down = function(knex) {
   return knex.schema
     .dropTableIfExists('users_cannabis')
+    .dropTableIfExists('flavors_db')
     .dropTableIfExists('cannabis')
 };

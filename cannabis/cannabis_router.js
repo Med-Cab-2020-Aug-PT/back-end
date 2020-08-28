@@ -8,7 +8,7 @@ const restrict = require('../config/restric-mid');
 
 router.get('/', restrict, async (req, res) => {
     const { id } = req.decodedToken
-    console.log('can router token', req.decodedToken)
+    // console.log('can router token', req.decodedToken)
     try {
         const results = await Can.getPreferrences(id)
         if (results) {
